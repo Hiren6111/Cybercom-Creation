@@ -1,0 +1,26 @@
+Topic     : Git And Github
+Date       :20201-01-05
+
+Respected sir/ma'am,
+
+
+ 	=>First I refer the book which is given by you for basic knowledge about git and github.
+	    Then I know what is git and how it works.
+	=>Then I Show 2 videos about git and git hub where I got some new git commands like
+	    touch     -  Use for creating file
+	    ls -lart    -  To see the Hidden files
+	    git add -A – To add all the untracked files to staging area
+	    code .      – to open the VS Code
+	   git rm –cached – it will remove from staging area only not from hard disk  etc.
+	=>Then I started Task I easily complete step 1, In step 2  I don't know about SSH key so
+	   I google it and after meeting I know what is the purpose of using SSH key.
+	=>In step 3 using clone command I got  README file and .git hidden folder in my project
+                    directory.
+	=>In step 4 I face your file not found error than I change my branch and merge it.
+Thanks,
+Hiren
+
+
+
+
+

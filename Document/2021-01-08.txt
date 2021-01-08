@@ -1,0 +1,20 @@
+Topic     : HTML,CSS,Javascript
+Date       :20201-01-08
+
+Respected sir/ma'am,
+
+
+ 		=> I see All the videos about javascript.Then solve the 2 challanges problem of
+                      	    Javascript and push them git repository.
+                   	=>Then I practice basic HTML tags and Completed First HTML practice page push
+		    code in git repo.
+	                =>use the commands <h1....h6>,<ol>,<ul>,<table>,<tr>,<td>,<th>,<div> etc.
+
+	   
+Thanks,
+Hiren
+
+
+
+
+

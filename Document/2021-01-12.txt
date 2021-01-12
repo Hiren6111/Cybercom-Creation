@@ -1,0 +1,20 @@
+Topic     : HTML,CSS,Javascript
+Date       :20201-01-12
+
+Respected sir/ma'am,
+
+
+ 		=> I see All the videos about javascript.Then Practice Hoisting in js,this keyword,
+		     loops and Iteration.
+                   	=>Then I practice HTML Forms, meta tag, No script tag,Styling Html Sheets,Nesting
+		    CSS etc.
+	                 =>push all the work in git ripository.
+
+	   
+Thanks,
+Hiren
+
+
+
+
+

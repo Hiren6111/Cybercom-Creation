@@ -30,6 +30,7 @@ for(var i=0;i<Bill.length;i++){
     Tips[i]=Total_bill[i]-Bill[i];
 }
 
+
 //Print Array
 
 console.log(Tips);

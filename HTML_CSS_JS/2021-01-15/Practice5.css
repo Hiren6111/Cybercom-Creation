@@ -1,0 +1,31 @@
+
+        table,th,td
+     {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-left: 520px;
+
+        }
+        .col-1{
+            background-color: rgb(136, 160, 226);
+            text-align: left;
+        
+        }
+        .col-2{
+            background-color:silver;
+            text-align: left;
+        }
+        .col-3{
+            background-color: rgb(206, 116, 116);
+            text-align: left;
+        }
+        .col-4{
+            background-color: rgb(238, 238, 137);
+            text-align: left;
+        }
+        #list{
+            -webkit-text-size-adjust: 20%;
+        }
+        h3{
+            margin-left: 520px;
+        }

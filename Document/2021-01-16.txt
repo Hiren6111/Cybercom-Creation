@@ -1,0 +1,17 @@
+Topic     : HTML, CSS, Javascript
+Date       :2021-01-16
+
+Respected sir/ma'am,
+
+
+		=> I see All the videos about First class function,Blocks and IIFs,Bind,Call And
+                                       Apply,Closures and ES6.
+		=>Then I completed HTML Practice 5 and push them in github.
+		=>Then I read some blogs about javascript Essential javascript tips for  the 
+                                      developers.
+		      
+
+
+	   
+Thanks,
+Hiren

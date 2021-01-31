@@ -1,0 +1,21 @@
+Topic     : php
+Date       :2021-01-30 
+
+Respected sir/ma'am,
+
+
+		=> I watch php GET and Post methods videos and do basic practices according to them.
+		     GET= It's Values is visible in the URL.
+	                             =It's can be book marked due to the visibility of the values in the URL
+		            =It Supports only string data.
+		   POST=It's Values is not visible in the URL
+                                              =It's cannot be book marked
+                                              =It Supports many differnet data type String,Numeric etc. 
+		=>And I practice one form with use of this Get And Post methode.
+		=>And Push them in Git repo.
+		      
+
+
+	   
+Thanks,
+Hiren

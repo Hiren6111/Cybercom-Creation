@@ -1,0 +1,17 @@
+Topic     : php
+Date       :2021-02-01 
+
+Respected sir/ma'am,
+
+
+		=> I watch php All  videos and do basic practices according to them.
+		     like ob_start,$_SERVER,string position,timestrap,how to Detect visitors browers,
+                                       Substring Replace,Server variable etc.
+                                  =>And I practice one form with use of this Get And Post method.
+		=>And Push them in Git repo.
+		      
+
+
+	   
+Thanks,
+Hiren

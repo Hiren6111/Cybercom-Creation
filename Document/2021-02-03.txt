@@ -1,0 +1,17 @@
+Topic     : php
+Date       :2021-02-03
+
+Respected sir/ma'am,
+
+
+		=> I watch php  videos about PHP Connect to MySQL Server,php
+                                        form validation.
+                                  =>And practice according them and Push them in Git repo.
+                                 =>Do the excercise about form validation and perform some connection
+		   program.            
+		      
+
+
+	   
+Thanks,
+Hiren

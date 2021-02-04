@@ -1,0 +1,18 @@
+Topic     : php
+Date       :2021-02-04
+
+Respected sir/ma'am,
+
+
+		=> I watch php  videos about php my admin , basic querying, SELECT,
+                                        UPDATE, JOIN,INNER-OUTER JOIN ,LEFT-RIGHT JOIN,hit counter,
+		     LIKE with search engine,SELECT DITINCT,How to getting user data. 
+                                  =>And practice according them and also practice how to connect database 
+                                      and how to insert data in database.
+                                 =>Read some basic tutorial about Object Oriented PHP.          
+		      
+
+
+	   
+Thanks,
+Hiren

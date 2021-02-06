@@ -3,7 +3,6 @@ var temp;
 var comp = false;
 
 
-
 function validation() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;

@@ -6,19 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registartion</title>
-    <style>
-        .container {
-            border: 1px solid black;
-            margin: auto;
-            width: 50%;
-            height: 500px;
-        }
-
-        .form {
-            margin-left: 340px;
-            margin-top: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="Registration.css">
 </head>
 
 <body>
@@ -28,14 +16,14 @@
 
         <form action="Login.html" class="form">
 
-            <input type="Name" id="fname" name="fname" placeholder="Name"><br><br>
+            <input type="Name" id="fname" name="fname" placeholder="Name" required><br><br>
 
 
-            <input type="Email" id="email" name="email" placeholder="Email"><br><br>
+            <input type="Email" id="email" name="email" placeholder="Email" required><br><br>
 
             <input type="password" id="password" name="password" placeholder="Password"><br><br>
 
-            <input type="password" id="cpassword" name="cpassword" placeholder="Confirm password"><br><br>
+            <input type="password" id="cpassword" name="cpassword" placeholder="Confirm password" required><br><br>
 
             <select name="city" id="city">
                 <option value="Select City">Select City</option>
@@ -45,8 +33,8 @@
 
             <select name="state" id="state">
                 <option value="Select state">Select state</option>
-                <option value="Ahmedabad">Gujarat</option>
-                <option value="Surat">Maharashtra</option>
+                <option value="guj">Gujarat</option>
+                <option value="Maha">Maharashtra</option>
             </select><br><br>
 
 
@@ -59,59 +47,5 @@
     </div>
 
 </body>
-<script>
-    var array = [];
-    var comp = false;
-
-    function addElement() {
-        var rname = document.getElementById('fname').value;
-        var remail = document.getElementById('email').value;
-        var rpassword = document.getElementById('password').value;
-        var rcpassword = document.getElementById('cpassword').value;
-        var rcity = document.getElementById('city').value;
-        var rstate = document.getElementById('state').value;
-
-        var admin = {
-            fname: rname,
-            email: remail,
-            password: rpassword,
-            city: rcity,
-            state: rstate,
-        };
-
-        if (localStorage.getItem('array')) {
-            array = JSON.parse(localStorage.getItem('array'));
-        }
-
-        function register() {
-            for (var i = 0; i < array.length; ++i) {
-
-                var temp = array[i];
-
-                if (temp.email == remail) {
-                    comp = true;
-                    alert("you are alredy registed");
-                    break;
-                }
-
-            }
-        }
-        register();
-        if (comp === false) {
-            array.push(admin);
-            console.log(array);
-            localStorage.setItem("array", JSON.stringify(array));
-            var success = window.confirm("Successfully Registred");
-            if (success) {
-                window.location.href = "Login.html";
-            }
-        }
-
-    };
-
-
-
-
-</script>
-
+<script src="Registration.js"></script>
 </html>

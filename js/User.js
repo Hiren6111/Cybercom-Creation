@@ -28,7 +28,7 @@ function insertUser() {
                 items[h].userbirthDate = document.getElementById('birthDate').value;
                 console.log(items);
                 localStorage.setItem("array_user", JSON.stringify(items));
-                alert("Record Updated");
+                alert("Updated");
                 location.reload();
             }
         }

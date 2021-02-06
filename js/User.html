@@ -6,11 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
-    <script>
-        if (!sessionStorage.getItem('fname')) {
-            window.location.href = "login.html";
-        }
-    </script>
+    
 </head>
 
 <body>
@@ -146,19 +142,12 @@
 
         document.write('</tbody></table>');	
     </script>
+    
 
     <script>
         document.getElementById("fname").innerHTML = "Hello " + sessionStorage.getItem("fname");
     </script>
 
-
-
-
-
 </body>
-
-
-
-    
-
+<script src="User.js"></script>
 </html>

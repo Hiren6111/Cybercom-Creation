@@ -6,20 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width" , initial-scale=1.0">
     <title>Login Page</title>
-    <style>
-        .container {
-            border: 1px solid black;
-            margin: auto;
-            width: 50%;
-            height: 500px;
-        }
-
-        .form {
-            margin-left: 350px;
-            margin-top: 100px;
-
-        }
-    </style>
+    <link rel="stylesheet" href="
+    Login.css">
 </head>
 
 <body>
@@ -44,45 +32,5 @@
 
 
 </body>
-<script>
-    var array = [];
-    var temp;
-    var comp = false;
-
-
-
-    function validation() {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-
-        if (localStorage.getItem('array')) {
-            array = JSON.parse(localStorage.getItem('array'));
-        }
-
-        function register() {
-            for (var i = 0; i < array.length; i++) {
-
-                temp = array[i];
-
-                if (array[i].email == email && array[i].password == password) {
-                    comp = true;
-
-                    break;
-                }
-            }
-        }
-        register();
-
-        if (comp == false) {
-            comp = false;
-            alert("Please enter valid email and password");
-        }
-        else {
-            sessionStorage.setItem("fname", temp.fname);
-            window.location.href = "Dashboard.html";
-        }
-    };
-</script>
-
-
+<script src="Login.js"></script>
 </html>

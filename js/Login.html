@@ -17,7 +17,7 @@
         .form {
             margin-left: 350px;
             margin-top: 100px;
-        
+
         }
     </style>
 </head>
@@ -28,25 +28,61 @@
 
         <h1 align="center">Login page</h1>
 
-        <form action="Registration.html" method="post" class="form">
+        <form action="Registration.html" class="form">
 
             <input type="Email" id="email" name="email" placeholder="Email"><br><br>
 
             <input type="password" id="password" name="password" placeholder="password"><br><br>
 
-            <input type="button" id="add" name="add" value="Login" onclick="addElement();"><br><br>
+            <input type="button" id="add" name="add" value="Login" onclick="validation();"><br><br>
 
-            <input type="submit" id="display" name="display" value="Register now">
+            <input type="submit" id="display" name="display" value="Register now"><br><br>
+
+
         </form>
     </div>
 
 
 </body>
 <script>
+    var array = [];
+    var temp;
+    var comp = false;
 
 
 
+    function validation() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
 
+        if (localStorage.getItem('array')) {
+            array = JSON.parse(localStorage.getItem('array'));
+        }
+
+        function register() {
+            for (var i = 0; i < array.length; i++) {
+
+                temp = array[i];
+
+                if (array[i].email == email && array[i].password == password) {
+                    comp = true;
+
+                    break;
+                }
+            }
+        }
+        register();
+
+        if (comp == false) {
+            comp = false;
+            alert("Please enter valid email and password");
+        }
+        else {
+            sessionStorage.setItem("name", temp.name);
+            window.location.href = "index.html";
+        }
+    };
 </script>
+
 
 </html>

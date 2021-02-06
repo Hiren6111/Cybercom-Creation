@@ -26,7 +26,7 @@
 
         <h1 align="center">Registartion</h1>
 
-        <form action="Registration.html" method="post" class="form">
+        <form action="Login.html" class="form">
 
             <input type="Name" id="fname" name="fname" placeholder="Name"><br><br>
 
@@ -49,12 +49,69 @@
                 <option value="Surat">Maharashtra</option>
             </select><br><br>
 
-            <input type="submit" id="display" name="display" value="Register"><br><br>
 
-            <input type="checkbox" id="terms" name="terms"> Terms & Conditions <br><br>
+            <input type="checkbox" id="terms" name="terms" onchange="document.getElementById('submit').disabled = !this.checked;"> Terms & Conditions <br><br>
+
+            <input type="submit" id="display" name="display" value="Register" disabled="disabled" onclick="addElement();">
+
+
         </form>
     </div>
 
 </body>
+<script>
+    var array = [];
+    var comp = false;
+
+    function addElement() {
+        var fname = document.getElementById('fname').value;
+        var email = document.getElementById('email').value;
+        var pwd = document.getElementById('password').value;
+        var cpwd = document.getElementById('cpassword').value;
+        var city = document.getElementById('city').value;
+        var state = document.getElementById('state').value;
+
+        var admin = {
+            rname: fname,
+            remail: email,
+            rpassword: pwd,
+            rcity: city,
+            rstate: state
+        };
+
+        if (localStorage.getItem('array')) {
+            array = JSON.parse(localStorage.getItem('array'));
+        }
+
+        function register() {
+            for (var i = 0; i < array.length; i++) {
+
+                var temp = array[i];
+
+                if (temp.email == remail) {
+                    comp = true;
+                    alert("you are alredy registed");
+                    break;
+                }
+
+            }
+        }
+        register();
+        if (comp === false) {
+            array.push(admin);
+            console.log(array);
+            localStorage.setItem("array", JSON.stringify(array));
+            var message = window.confirm("Successfully Registred");
+            if (message) {
+                window.location.href = "Login.html";
+            }
+        }
+
+    };
+
+
+
+
+</script>
 
 </html>

@@ -1,0 +1,15 @@
+Topic     : php
+Date       :2021-02-07
+
+Respected sir/ma'am,
+
+		=>I watch videos about AJAX how  to delete and update row and perform
+                                      some program.
+		=>I read about namespace i PHP.
+                                  =>I practice Excersice which is given by Team lead.         
+		      
+
+
+	   
+Thanks,
+Hiren

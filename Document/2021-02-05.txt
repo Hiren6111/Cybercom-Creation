@@ -1,0 +1,17 @@
+Topic     : php
+Date       :2021-02-05
+
+Respected sir/ma'am,
+
+
+		=>I read some basic tutorial about Object Oriented PHP.and perform some Practice
+                                      Program for OOP. 
+                                  =>I learn about classes and objects, this keyword,chaining methods and Properties,
+                                      access specifier-Public,Private And Protected,Inheritance,Polymorphism etc.    
+                                 =>and push them in git repo.          
+		      
+
+
+	   
+Thanks,
+Hiren

@@ -1,0 +1,11 @@
+
+.container{
+    border:1px solid black;
+    margin: auto;
+
+}
+.btn{
+ background-color: blue;
+ color:white;
+border-radius: 2px;
+}

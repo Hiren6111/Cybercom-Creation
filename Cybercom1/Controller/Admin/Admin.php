@@ -7,19 +7,18 @@ namespace Controller\Admin;
 class Admin extends \Controller\Core\Admin{
     protected $admins = [];
 
-    public function gridAction (){
-       
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\Admin\Grid');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
+    public function gridAction (){ 
+        $grid = \Mage::getBlock('Block\Admin\Admin\Grid')->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $grid,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
     }
     
     
@@ -50,22 +49,18 @@ class Admin extends \Controller\Core\Admin{
     }
        
     public function updateAction()
-    {
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\Admin\Edit');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $layout->setTemplate('./View/core/layout/three_column.php');
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
-        
-        //require_once './View/admin/admin/adminUpdate.php';
+    {  
+        $contentForm=\Mage::getBlock("Block\Admin\Admin\Edit")->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $contentForm,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
         
     }
     

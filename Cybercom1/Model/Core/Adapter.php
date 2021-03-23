@@ -103,6 +103,21 @@ class Adapter {
         $values = array_column($rows,'1');
         return array_combine($columns,$values);
     }
+
+    public function fetchOne($query)
+    {
+        if (!$this->isConnected()) 
+        {
+        $this->connection();
+        }
+            $result = $this->getConnect()->query($query);
+            $fetchrow = $result->num_rows;
+        if (!$fetchrow) 
+        {
+            return $fetchrow;
+        }
+        return $fetchrow;
+    }
     
     public function delete($query)
     {

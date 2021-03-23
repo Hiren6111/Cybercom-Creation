@@ -5,7 +5,7 @@ $shipping = $this->getShipping();
 <div class="container">
     <h2 style="text-align:center ;">Shipping Add/Update Form</h2>
 
-        <form method="post" action="<?php echo $this->getUrl('save') ?>">
+        <form method="post" id="shippingForm" action="<?php echo $this->getUrl('save', 'shipping', ['id' => $shipping->shippingId]); ?>">
   
         <div class="row">
             <div class="col-lg-6">
@@ -44,7 +44,7 @@ $shipping = $this->getShipping();
                     }
                     ?>
                 </select><br>
-                <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="object.resetParams().setForm('#shippingForm').load();" value="submit">Submit</button>
 
 
             </div>

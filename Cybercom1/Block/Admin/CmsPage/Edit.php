@@ -7,7 +7,7 @@ class Edit extends \Block\Core\Template
     protected $cmsPage = NULL;
 
     public function __construct() {
-        $this->setTemplate('./View/admin/cmsPage/cmsPageUpdate.php');
+        $this->setTemplate('./View/admin/cmsPage/edit.php');
     }
 
     public function setCmsPage($cmsPage = NULL){

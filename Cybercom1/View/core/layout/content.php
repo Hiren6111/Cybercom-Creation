@@ -1,22 +1,10 @@
-<?php
-$children = $this->getChildren();
-
-foreach ($children as $child){
-    echo $child->toHtml();
-
-}
-
-?> 
-<!-- <div id="productGrid">
-
+<div id="content">
+    <?php
+    foreach ($this->getChildren() as $key => $value) {
+        echo $this->getChild($key)->toHtml();
+    }
+    ?>
 </div>
 <script type="text/javascript">
     var object = new Base();
-    //object.getParams();
-    object.setParams({
-        name: 'Hiren',
-        email: 'abc@gmail'
-    });
-    object.setUrl('http://localhost/Cybercom1/index.php?c=product&a=test3');
-    object.load();
-</script> -->
+</script>

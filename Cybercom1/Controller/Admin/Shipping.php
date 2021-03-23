@@ -1,32 +1,31 @@
 <?php
 namespace Controller\Admin;
 \Mage::loadFileByClassName('Controller\Core\Admin');
-\Mage::loadFileByClassName('Block\Core\Layout');
-
 
 class Shipping extends \Controller\Core\Admin{
     protected $shippings = [];
 
     public function gridAction (){
-       
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\Shipping\Grid');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
+        $grid = \Mage::getBlock('Block\Admin\Shipping\Grid')->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $grid,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
     }
-           
+    
+
+    
     public function saveAction(){
 
         try{
             $shipping = \Mage::getModel('Model\Shipping');
-            
+
             if(!$this->getRequest()->isPost()){
                 throw new \Exception ("Invalid Request");
             }
@@ -53,20 +52,17 @@ class Shipping extends \Controller\Core\Admin{
        
     public function editAction()
     {
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\Shipping\Edit');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $layout->setTemplate('./View/core/layout/three_column.php');
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
-        
+        $contentForm = \Mage::getBlock('Block\Admin\shipping\Edit')->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $contentForm,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
     }
     
     
@@ -77,7 +73,7 @@ class Shipping extends \Controller\Core\Admin{
             if(!$id){
                 throw new \Exception("Invalid ID.");    
             }
-            $shipping = \Mage::getModel('Model\shipping');
+            $shipping = \Mage::getModel('Model\Shipping');
             //$shipping = $this->getshipping();
             $shipping->load($id);
             if($shipping->delete()) {
@@ -90,7 +86,7 @@ class Shipping extends \Controller\Core\Admin{
         catch (\Exception $e) {
             $this->getMessage()->setFailure($e->getMessage());
         }  
-        $this->redirect('grid');
+        $this->redirect("grid",null,null,true);
     }
     
 }

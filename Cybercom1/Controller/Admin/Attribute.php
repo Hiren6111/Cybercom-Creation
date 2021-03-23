@@ -1,4 +1,5 @@
 <?php
+
 namespace Controller\Admin;
 
 \Mage::loadFileByClassName('Controller\Core\Admin');
@@ -30,7 +31,7 @@ class Attribute extends \Controller\Core\Admin
         $attribute = \Mage::getModel('Model\Attribute');
         $data = $this->getRequest()->getPost('attribute');
         if ($id = $this->getRequest()->getGet('id')) {
-            echo 2;
+            // echo 2;
             $attribute->load($id)->getData($data);
             $attribute->attributeId = $id;
         }
@@ -54,8 +55,18 @@ class Attribute extends \Controller\Core\Admin
 
     public function updateAction()
     {
-       
-        $this->redirect('grid', null, null, true);
+
+        $layout = $this->getLayout();
+        $content = $layout->getChild('content');
+        $layout->setTemplate('./View/core/layout/three_column.php');
+        $attribute = \Mage::getModel('Model\Attribute');
+        if ($id = (int)$this->getRequest()->getGet('id'))
+        {
+            $attribute = $attribute->load($id);
+        }
+        $editBlock =  \Mage::getBlock('Block\Admin\Attribute\Edit')->setTableRow($attribute);
+        $content->addChild($editBlock);
+        $this->toHtmlLayout();
     }
 
     public function  deleteAction()

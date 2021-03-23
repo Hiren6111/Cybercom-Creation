@@ -1,7 +1,6 @@
 <?php
 namespace Block\Admin\Admin;
 \Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Admin');
 
 class Grid extends \Block\Core\Template
 {
@@ -14,7 +13,7 @@ class Grid extends \Block\Core\Template
     public function setAdmins($admins = NULL) {
         if(!$admins) {
             $admins = \Mage::getModel('Model\Admin');
-            $admins = $admins->fetchAll()->getData();
+            $admins = $admins->fetchAll();
            
         }
         $this->admins = $admins;

@@ -8,19 +8,20 @@ class CmsPage extends \Controller\Core\Admin{
     protected $cmsPages = [];
 
     public function gridAction (){
-       
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\CmsPage\Grid');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
+        $grid = \Mage::getBlock('Block\Admin\CmsPage\Grid')->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $grid,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
     }
+    
+
     
     public function saveAction(){
 
@@ -35,6 +36,7 @@ class CmsPage extends \Controller\Core\Admin{
                 if (!$cmsPage){
                     throw new \Exception ("Records not found.");
                 }
+                // $cmsPage->updatedDate = date("Y-m-d H:i:s");
             }
             else {
                 $cmsPage->createdDate = date("Y-m-d H:i:s");
@@ -46,26 +48,26 @@ class CmsPage extends \Controller\Core\Admin{
         }
         catch(\Exception $e){
             $this->getMessage()->setFailure($e->getMessage());
+            //echo $e->getMessage();
         }
         $this->redirect("grid",null,null,true);
     }
        
     public function cmsPageUpdateAction()
     {
-        try{
-            $gridBlock = \Mage::getBlock('Block\Admin\CmsPage\Edit');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $layout->setTemplate('./View/core/layout/three_column.php');
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-
-        
-        }catch(\Exception $e){
-            echo $e->getMessage();
-        }
+        $contentForm=\Mage::getBlock("Block\Admin\CmsPage\Edit")->toHtml();
+        $response = [
+            'element' => [
+                [
+                    'selector' => '#content',
+                    'html' => $contentForm,
+                ],
+            ],
+        ];
+        header("Content-type:appliction/json; charset=utf-8");
+        echo json_encode($response);
     }
+    
     
     public function cmsPageDeleteAction()
     {

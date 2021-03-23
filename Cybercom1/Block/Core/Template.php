@@ -10,6 +10,8 @@ class Template{
     protected $message = NULL;
     protected $request = NULL;
     protected $url = NULL;
+    protected $tabs = [];
+    protected $defaultTab = null;
 
     public function __construct()
     {
@@ -36,13 +38,9 @@ class Template{
 
     }
     public function toHtml()
-	{
-		ob_start();
-		require_once $this->getTemplate();
-		$content = ob_get_contents();
-		ob_end_clean();
-		return $content;
-	}
+    {
+        require_once $this->getTemplate();
+    }
     public function setUrls($url = null) {
 		if(!$url) {
 			$url = \Mage::getModel('Model\Core\Url');
@@ -130,6 +128,45 @@ class Template{
     }
     public function baseUrl($subUrl = null){
         return $this->getUrls()->baseUrl($subUrl);
+    }
+
+    public function setDefaultTab($defaultTab)
+    {
+        $this->defaultTab = $defaultTab;
+        return $this;
+    }
+    public function getDefaultTab()
+    {
+        return $this->defaultTab;
+    }
+   
+    public function setTabs(array $tabs = []) {
+        $this->tabs = $tabs;
+        return $this;
+    }
+
+    public function getTabs() {
+        return $this->tabs;
+    }
+
+    public function addTab($key, $tab = []) {
+       
+        $this->tabs[$key] = $tab;
+        return $this;
+    }
+
+    // public function getTab($key) {
+    //     if (!array_key_exists($key, $this->tabs)) {
+    //         return null;
+    //     }
+    //     return $this->tabs[$key];
+    // }
+
+    public function removeTab($key) {
+        if (array_key_exists($key, $this->tabs)) {
+            unset($this->tabs[$key]);
+        }
+        return $this;
     }
 }
 ?>

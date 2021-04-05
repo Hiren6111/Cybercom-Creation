@@ -56,11 +56,16 @@ class Category extends \Controller\Core\Admin {
     public function categoryUpdateAction()
     {
         try{
-            $edit =  \Mage::getBlock('Block\Admin\Category\Edit');
             $layout = $this->getLayout(); 
-            $layout->setTemplate("View/core/layout/three_column.php");
             $content = $layout->getChild('content');
-            $content->addChild($edit);
+            $layout->setTemplate('./View/core/layout/three_column.php');
+            $category = \Mage::getModel('Model\Category');
+            if ($id = (int)$this->getRequest()->getGet('id')){   
+                $category = $category->load($id);
+            }
+            $editBlock =  \Mage::getBlock('Block\Admin\Category\Edit')->setTableRow($category);
+
+            $content->addChild($editBlock);
             $this->toHtmlLayout();
         }
         catch (\Exception $e) {

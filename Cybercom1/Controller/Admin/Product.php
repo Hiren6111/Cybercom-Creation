@@ -28,7 +28,7 @@ class Product extends \Controller\Core\Admin
     public function saveAction(){
         try{
             $product = \Mage::getModel('Model\Product');
-
+            
             if(!$this->getRequest()->isPost()){
                 throw new \Exception ("Invalid Request");
             }
@@ -38,13 +38,16 @@ class Product extends \Controller\Core\Admin
                     throw new \Exception ("Records not found.");
                 }
                 $product->updatedDate = date("Y-m-d H:i:s");
-
+                
             }
             else {
                 $product->createdDate = date("Y-m-d H:i:s");
             }
             $productData = $this->getRequest()->getPost('product'); 
             $product->setData($productData);
+            // echo "<pre>";
+            // print_r($product);
+            // die;
             $product->save();
             $this->getMessage()->setSuccess('Record Inserted Successfully.');    
         }
@@ -54,11 +57,48 @@ class Product extends \Controller\Core\Admin
         }
         $this->redirect("grid",null,null,true);
     }
+
+    public function editAction()
+    {
+        try {
+            $layout = $this->getLayout(); 
+            $content = $layout->getChild('content');
+            $layout->setTemplate('./View/core/layout/three_column.php');
+            $product = \Mage::getModel('Model\Product');
+            if ($id = (int)$this->getRequest()->getGet('id')){   
+                $product = $product->load($id);
+            }
+            $editBlock =  \Mage::getBlock('Block\Admin\Product\Edit')->setTableRow($product);
+            $content->addChild($editBlock);
+            $this->toHtmlLayout();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function deleteAction()
+    {
+        try {
+            $id = $this->getRequest()->getGet('id');
+
+            $product = \Mage::getModel("Model\Product");
+            $product->load($id);
+            if ($id != $product->productId) {
+                throw new \Exception . ('Id is Invalid');
+            }
+            if ($product->delete()) {
+                $this->getMessage()->setSuccess("Delete Successfully");
+            }
+
+            $this->redirect('grid', null, null, true);
+        } catch (\Exception $e) {
+            $this->getMessage()->setFailure($e->getMessage());
+        }
+    }
     
     public function productMediaAction()
     {
-        $media = \Mage::getModel('Model\Product');
-        $media->setTableName('product_media');
+        $media = \Mage::getModel('Model\Product\Media');
         $id = $this->getRequest()->getGet('id');
 
         if ($this->getRequest()->getPost('image')) {
@@ -82,13 +122,12 @@ class Product extends \Controller\Core\Admin
             $ids = $this->getRequest()->getPost('delete');
 
             if ($ids) {
-                $media->setPrimaryKey('imageId');
 
                 foreach ($ids as $key => $value) {
                     $media->load($key);
                     $id = $media->imageId;
-                    $query = "Delete FROM `product_media` WHERE `imageId` = $id";
                     if (unlink($media->image)) {
+                        $query = "Delete FROM `product_media` WHERE `imageId` = $id";
                         $media->delete($query);
                     }
                 }
@@ -98,6 +137,8 @@ class Product extends \Controller\Core\Admin
 
         if ($this->getRequest()->getPost('update')) {
             $data = $this->getRequest()->getPost();
+            echo "<pre>";
+            print_r($data);
             $radio['small'] = $data['small'];
             $radio['thumb'] = $data['thumb'];
             $radio['base'] = $data['base'];
@@ -123,25 +164,7 @@ class Product extends \Controller\Core\Admin
             $this->redirect('grid', 'product');
         }
     }
-    public function deleteAction()
-    {
-        try {
-            $id = $this->getRequest()->getGet('id');
-
-            $product = \Mage::getModel("Model\Product");
-            $product->load($id);
-            if ($id != $product->productId) {
-                throw new \Exception . ('Id is Invalid');
-            }
-            if ($product->delete()) {
-                $this->getMessage()->setSuccess("Delete Successfully");
-            }
-
-            $this->redirect('grid', null, null, true);
-        } catch (\Exception $e) {
-            $this->getMessage()->setFailure($e->getMessage());
-        }
-    }
+    
     public function formAction()
     {
         try {
@@ -163,19 +186,5 @@ class Product extends \Controller\Core\Admin
             $this->redirect('grid', null, null, true);
         }
     }
-    public function editAction()
-    {
-        try {
-            $gridBlock = \Mage::getBlock('Block\Admin\Product\Edit');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $layout->getLeft()->addChild(\Mage::getBlock('Block\Admin\Product\Edit\Tabs'));
-            $layout->setTemplate('./View/core/layout/three_column.php');
-            $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
-            $this->toHtmlLayout();
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
+    
 }

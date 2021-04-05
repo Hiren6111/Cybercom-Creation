@@ -1,7 +1,7 @@
 <?php
 namespace Block\Admin\CmsPage;
+
 \Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Shipping');
 
 class Grid extends \Block\Core\Template
 {
@@ -30,4 +30,3 @@ class Grid extends \Block\Core\Template
     }
     
 }
-?>

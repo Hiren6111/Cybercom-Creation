@@ -18,12 +18,20 @@ class Attribute extends \Controller\Core\Admin
 
     public function editAction()
     {
-        $edit = \Mage::getBlock('Block\Admin\Attribute\Edit');
-
-        $layout = $this->getLayout()->setTemplate('View/core/layout/three_column.php');
-        $layout->getContent()->addChild($edit);
-        $layout->getLeft()->addChild(\Mage::getBlock('Block\Admin\Attribute\Edit\Tabs'));
-        echo $layout->toHtml();
+        $layout = $this->getLayout(); 
+        $content = $layout->getChild('content');
+        $layout->setTemplate('./View/core/layout/three_column.php');
+        $attribute = \Mage::getModel('Model\Attribute');
+        
+        if ($id = (int)$this->getRequest()->getGet('id')){   
+            $attribute = $attribute->load($id);
+        }
+        $editBlock =  \Mage::getBlock('Block\Admin\Attribute\Edit')->setTableRow($attribute);
+        // echo "<pre>";
+        // print_r($editBlock);
+        // die;
+        $content->addChild($editBlock);
+        $this->toHtmlLayout();
     }
 
     public function saveAction()
@@ -50,24 +58,24 @@ class Attribute extends \Controller\Core\Admin
         $optionBlock->setAttribute($option);
         $layout = $this->getLayout();
         $layout->getContent()->addChild($optionBlock);
-        echo $layout->toHtml();
+        $layout->toHtml();
     }
 
-    public function updateAction()
-    {
+    // public function updateAction()
+    // {
 
-        $layout = $this->getLayout();
-        $content = $layout->getChild('content');
-        $layout->setTemplate('./View/core/layout/three_column.php');
-        $attribute = \Mage::getModel('Model\Attribute');
-        if ($id = (int)$this->getRequest()->getGet('id'))
-        {
-            $attribute = $attribute->load($id);
-        }
-        $editBlock =  \Mage::getBlock('Block\Admin\Attribute\Edit')->setTableRow($attribute);
-        $content->addChild($editBlock);
-        $this->toHtmlLayout();
-    }
+    //     $layout = $this->getLayout();
+    //     $content = $layout->getChild('content');
+    //     $layout->setTemplate('./View/core/layout/three_column.php');
+    //     $attribute = \Mage::getModel('Model\Attribute');
+    //     if ($id = (int)$this->getRequest()->getGet('id'))
+    //     {
+    //         $attribute = $attribute->load($id);
+    //     }
+    //     $editBlock =  \Mage::getBlock('Block\Admin\Attribute\Edit')->setTableRow($attribute);
+    //     $content->addChild($editBlock);
+    //     $this->toHtmlLayout();
+    // }
 
     public function  deleteAction()
     {

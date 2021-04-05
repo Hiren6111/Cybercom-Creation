@@ -1,8 +1,8 @@
 <?php
 namespace Block\Admin\Customer\Edit\Tabs;
-\Mage::getBlock("Block\Core\Template");
+\Mage::getBlock("Block\Core\Edit");
 
-class Form extends \Block\Core\Template
+class Form extends \Block\Core\Edit
 {
     protected $customer = NULL;
     protected $group = Null;

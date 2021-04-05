@@ -1,12 +1,12 @@
 <?php 
 $customers = $this->getCustomers();
 // echo "<pre>";
-// print_r($customers);
+// print_r($data);
 // die;
 $data = [];
 if($customers){
     foreach($customers as $key=>$value){
-        $data = $value->getData();
+        $data = $value->getOriginalData();
         break;
     }   
 }

@@ -1,14 +1,13 @@
 <?php
-
 namespace Block\Admin\Attribute;
-\Mage::loadFileByClassName("Block\Core\Template");
+
 class Grid extends \Block\Core\Template
 {
     protected $attributes = [];
 
     public function __construct()
     {
-        $this->setTemplate('View/admin/attribute/grid.php');
+        $this->setTemplate('./View/admin/attribute/grid.php');
     }
 
     public function setAttribute($attributes = null)

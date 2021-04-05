@@ -1,4 +1,4 @@
-<?php $row = $this->getProducts(); ?>
+<?php $row = $this->getProducts();?>
 
 <div class="container">
     <br><br><br>
@@ -20,7 +20,7 @@
                     <th>Status</th>
                     <th>CreatedDate</th>
                     <th>UpdatedDate</th>
-                    <th colspan="3">Action</th>
+                    <th colspan="4">Action</th>
                 </thead>
                 
                 <tbody id="data-table" align="center">
@@ -44,6 +44,7 @@
                         <td><?php echo $value->updatedDate; ?></td>
                         <td><a href='<?php echo $this->getUrl('edit', null, ['id' => $value->productId]) ?>' class="btn btn-warning" role="button">Update</a></td>       
                         <td><a href='<?php echo $this->getUrl('delete', null, ['id' => $value->productId]) ?>' class="btn btn-danger" role="button">Delete</a></td>
+                        <td><a href='<?php echo $this->getUrl('addToCart','cart',['id' => $value->productId] )?>' class="btn btn-warning btn-sm">Add to Cart</a></td>
                         <td><a href='<?php echo $this->getUrl('index','product_groupPrice', ['id' => $value->productId]) ?>' class="btn btn-warning btn-sm">Group Price</a></td>
 
                     </tr>

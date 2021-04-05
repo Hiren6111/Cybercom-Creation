@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Mar 18, 2021 at 02:07 PM
+-- Generation Time: Apr 05, 2021 at 07:38 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -30,15 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `adminId` int(11) NOT NULL,
   `userName` varchar(50) NOT NULL,
-  `password` varchar(12) NOT NULL
+  `password` varchar(12) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `createdDate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`adminId`, `userName`, `password`) VALUES
-(1, 'Hiren', '654321');
+INSERT INTO `admin` (`adminId`, `userName`, `password`, `status`, `createdDate`) VALUES
+(1, 'Hiren', '66666', 1, '2021-03-20 10:21:52');
 
 -- --------------------------------------------------------
 
@@ -105,9 +107,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`categoryId`, `parentId`, `name`, `status`, `description`, `pathId`) VALUES
-(1, 0, 'Bedroom', 'Enable', NULL, '1'),
+(1, 0, 'Bedroom', '1', NULL, '1'),
 (101, 1, 'Beds', '1', '', '1=101'),
-(102, 101, 'Panel Beds', '', '', '1=101=102'),
+(102, 101, 'Panel Beds', '1', '', '1=101=102'),
 (105, 0, 'Living room ', '1', '', '105'),
 (106, 105, 'Sofa', '1', '', '105=106');
 
@@ -133,7 +135,7 @@ CREATE TABLE `cms_page` (
 --
 
 CREATE TABLE `customer` (
-  `customerId` int(255) NOT NULL,
+  `customerId` int(11) NOT NULL,
   `firstName` varchar(15) NOT NULL,
   `lastName` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -151,7 +153,10 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`customerId`, `firstName`, `lastName`, `email`, `password`, `mobileNo`, `status`, `createdDate`, `updatedDate`, `groupId`) VALUES
 (2, 'Hiren', 'Patel', 'hhpatel6111@gmail.co', 'pass311', 12457854, '0', '0000-00-00 00:00:00', '2021-03-18 02:53:08', 1),
-(9, 'Akshay', 'Shiyani', 'ak2701@gmail.com', 'sadak2321', 0, '0', '2021-03-18 04:12:01', '2021-03-18 08:42:01', 1);
+(9, 'Akshay', 'Shiyani', 'ak2701@gmail.com', 'sadak2321', 0, '0', '2021-03-18 04:12:01', '2021-03-18 08:42:01', 1),
+(13, 'Archit', 'Meshiya', 'ameshiya@yahoo.com', 'Password', 0, '1', '2021-03-30 02:22:44', '2021-03-30 05:52:44', 1),
+(14, 'Krunal', 'Gorasiya', 'kp0053@yahoo.com', 'kp007', 0, '1', '2021-03-31 03:28:28', '2021-03-31 06:58:28', 1),
+(16, 'Dharmik', 'Tank', 'etrt@yahoo.com', 'rg34gt34', 0, '1', '2021-04-01 08:41:52', '2021-04-01 12:11:52', 1);
 
 -- --------------------------------------------------------
 
@@ -175,14 +180,20 @@ CREATE TABLE `customer_address` (
 --
 
 INSERT INTO `customer_address` (`addressId`, `customerId`, `address`, `city`, `state`, `zipcode`, `country`, `addressType`) VALUES
-(1, 0, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Billing'),
-(2, 0, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Shipping'),
-(3, 2, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Billing'),
-(4, 2, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Shipping'),
-(5, 5, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD, MOTA VARACHHA', 'SURAT', 'Gujarat', 394101, 'India', 'Billing'),
-(6, 5, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD, MOTA VARACHHA', 'SURAT', 'Gujarat', 394101, 'India', 'Shipping'),
-(7, 9, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD, MOTA VARACHHA', 'SURAT', 'Gujarat', 394101, 'India', 'Billing'),
-(8, 9, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD, MOTA VARACHHA', 'SURAT', 'Gujarat', 394101, 'India', 'Shipping');
+(15, 2, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARACHA', 'Surat', 'Gujarat', 0, 'India', 'Billing'),
+(16, 2, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Surat', 'Gujarat', 0, 'India', 'Shipping'),
+(17, 9, '264,Hansh Society', 'SURAT', 'Gujarat', 394101, 'India', 'Billing'),
+(18, 9, '264,Hansh Society', 'SURAT', 'Gujarat', 394101, 'India', 'Shipping'),
+(19, 12, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Billing'),
+(20, 12, 'E-2,102,KRISHNA TOWNSHIP,SATE LIGHT ROAD,MOTA VARA', 'Select', 'Gujarat', 394101, 'India', 'Shipping'),
+(21, 13, '10,Green Park', 'SURAT', 'Gujarat', 394101, 'India', 'Billing'),
+(22, 13, '10,Green Park', 'SURAT', 'Gujarat', 394101, 'India', 'Shipping'),
+(23, 0, '108,GOVERNMENT ENGINEERING COLLEGE GIRLS HOSTEL,MAVDI-KANKOT ROAD,RAJKOT.', 'RAJKOT', 'Gujarat', 36005, 'India', 'Billing'),
+(24, 0, '108,GOVERNMENT ENGINEERING COLLEGE GIRLS HOSTEL,MAVDI-KANKOT ROAD,RAJKOT.', 'RAJKOT', 'Gujarat', 360005, 'India', 'Shipping'),
+(25, 16, '108,GOVERNMENT ENGINEERING COLLEGE GIRLS HOSTEL,MAVDI-KANKOT ROAD,RAJKOT.', 'RAJKOT', 'Gujarat', 360005, 'India', 'Billing'),
+(26, 16, '108,GOVERNMENT ENGINEERING COLLEGE GIRLS HOSTEL,MAVDI-KANKOT ROAD,RAJKOT.', 'RAJKOT', 'Gujarat', 360005, 'India', 'Shipping'),
+(27, 14, '10,Green Park', 'SURAT', 'Gujarat', 394101, 'India', 'Billing'),
+(28, 14, '10,Green Park', 'SURAT', 'Gujarat', 394101, 'India', 'Shipping');
 
 -- --------------------------------------------------------
 
@@ -252,10 +263,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`productId`, `sku`, `name`, `price`, `discount`, `quantity`, `description`, `status`, `createdDate`, `updatedDate`) VALUES
-(208, 1100, 'Nokia1100', 1200, 0, 1, '4 GB RAM,8 GB ROM', '1', '2021-03-04 00:57:46', '2021-03-18 01:02:10'),
-(215, 5664, 'Ear-phone', 1200, 100, 2, 'With Extra Bazz', '1', '2021-03-17 13:07:16', '2021-03-17 13:21:02'),
-(216, 652315, 'Bed', 20000, 1000, 1, 'Full Size', '0', '2021-03-18 01:33:42', NULL),
-(217, 132165, 'Sofa', 25000, 0, 1, 'Flexible', '1', '2021-03-18 01:34:52', NULL);
+(208, 1100, 'Nokia1100', 1200, 100, 1, '4 GB RAM,8 GB ROM', '0', '2021-03-04 00:57:46', '2021-03-25 00:12:17'),
+(216, 652315, 'Bed', 20000, 1000, 1, 'Full Size', '1', '2021-03-18 01:33:42', '2021-03-25 01:13:27'),
+(217, 132165, 'Sofa', 25000, 0, 1, 'Flexible', '1', '2021-03-18 01:34:52', NULL),
+(218, 33221, 'Night-Lamp', 1200, 100, 1, '', '1', '2021-03-24 23:31:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -305,9 +316,8 @@ CREATE TABLE `product_media` (
 --
 
 INSERT INTO `product_media` (`imageId`, `image`, `label`, `small`, `thumb`, `base`, `gallery`, `productId`) VALUES
-(1, 'Images/Products/product1.jfif', 'product1.jfif', 1, 1, 1, 1, 208),
-(2, 'Images/Products/product1.jfif', 'product1.jfif', 0, 0, 0, 0, 208),
-(3, 'Images/Products/product1.jfif', 'product1.jfif', 0, 0, 0, 0, 215);
+(10, 'Images/Products/product1.jfif', 'product1.jfif', 0, 0, 0, 1, 208),
+(11, 'Images/Products/thumb-1920-587777.png', 'thumb-1920-587777.png', 1, 1, 1, 1, 208);
 
 -- --------------------------------------------------------
 
@@ -426,7 +436,7 @@ ALTER TABLE `shipping`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `attribute`
@@ -444,31 +454,31 @@ ALTER TABLE `attribute_options`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `cms_page`
 --
 ALTER TABLE `cms_page`
-  MODIFY `pageId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `addressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `addressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `customer_group`
 --
 ALTER TABLE `customer_group`
-  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -480,7 +490,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `productId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `productId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
 
 --
 -- AUTO_INCREMENT for table `product_group_price`
@@ -492,13 +502,13 @@ ALTER TABLE `product_group_price`
 -- AUTO_INCREMENT for table `product_media`
 --
 ALTER TABLE `product_media`
-  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-  MODIFY `shippingId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `shippingId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

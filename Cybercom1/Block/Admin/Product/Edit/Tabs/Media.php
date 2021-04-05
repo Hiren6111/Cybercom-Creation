@@ -1,8 +1,8 @@
 <?php
 namespace Block\Admin\Product\Edit\Tabs;
-\Mage::getBlock("Block\Core\Template");
+\Mage::getBlock("Block\Core\Edit");
 
-class Media extends \Block\Core\Template
+class Media extends \Block\Core\Edit
 {
     protected $media = null;
     function __construct()
@@ -19,10 +19,9 @@ class Media extends \Block\Core\Template
         if($id = $this->getRequest()->getGet('id')){
             $query = "SELECT * FROM `product_media` WHERE `productId`={$id}";
             $array = $product->fetchAll($query);
-            if($array){
-                foreach($array->getData() as $key=>$value){
-                    $this->media[] = $value->getData();
-                }
+            if($array)
+            {
+                $this->media=$array->getData();
             }
         }
         return $this;

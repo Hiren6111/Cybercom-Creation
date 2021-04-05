@@ -1,9 +1,9 @@
 <?php
 
 namespace Block\Admin\Product\Edit\Tabs;
-\Mage::getBlock("Block\Core\Template");
+\Mage::getBlock("Block\Core\Edit");
 
-class GroupPrice extends \Block\Core\Template
+class GroupPrice extends \Block\Core\Edit
 {
     protected $product = null;
     protected $customerGroup = null;
@@ -13,7 +13,7 @@ class GroupPrice extends \Block\Core\Template
        $this->setTemplate('./View/admin/product/edit/tabs/groupPrice.php'); 
     }
 
-    public function setProduct(\Model\Product $product)
+    public function setProduct(\Model\Product $product=null)
     {
         $this->product = $product;
         return $this;

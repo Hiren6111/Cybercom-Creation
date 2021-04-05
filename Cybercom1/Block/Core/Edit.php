@@ -11,6 +11,7 @@ class Edit extends \Block\Core\Template implements \Block\Core\Edit\EditInterfac
     protected $tabClass = null;
 
     public function __construct() {
+        
         $this->setTemplate('./View/core/edit.php');
     }
 
@@ -30,6 +31,7 @@ class Edit extends \Block\Core\Template implements \Block\Core\Edit\EditInterfac
         //print_r($tabs[$tab]['block']);
         $blockClassName = $tabs[$tab]['block'];
         $block = \Mage::getBlock($blockClassName);
+        // var_dump($this->getTableRow());
         $block->setTableRow($this->getTableRow());
         echo $block->toHtml();
     }
@@ -56,7 +58,7 @@ class Edit extends \Block\Core\Template implements \Block\Core\Edit\EditInterfac
         return $this->tab;
     }
 
-    public function setTableRow(\Model\Core\Table $tableRow)
+    public function setTableRow(\Model\Core\Table $tableRow=null)
     {
         $this->tableRow = $tableRow;
         return $this;
@@ -64,9 +66,9 @@ class Edit extends \Block\Core\Template implements \Block\Core\Edit\EditInterfac
 
     public function getTableRow()
     {
-        // if(!$this->tableRow){
-        //     $this->setTableRow();
-        // }
+        if(!$this->tableRow){
+            $this->setTableRow();
+        }
         return $this->tableRow;
     }
 

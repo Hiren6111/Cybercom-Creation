@@ -25,8 +25,9 @@ class Customer extends \Controller\Core\Admin{
 
     
     public function saveAction(){
-
         try{
+            // echo 11;
+            // die;
             $customer = \Mage::getModel('Model\Customer');
 
             if(!$this->getRequest()->isPost()){
@@ -84,9 +85,8 @@ class Customer extends \Controller\Core\Admin{
                 }
             }
             if($id = $this->getRequest()->getGet('id')){
-                $Pid = $customer->getPrimaryKey();
-                $customerBilling->$Pid = $id;
-                $customerShipping->$Pid = $id;
+                $customerBilling->customerId = $id;
+                $customerShipping->customerId = $id;
             }
             if($customerBilling->addressSave1() && $customerShipping->addressSave1() && $id){
                 $this->getMessage()->setSuccess("Update Successfully");
@@ -96,20 +96,23 @@ class Customer extends \Controller\Core\Admin{
         }catch(\Exception $e){
             $this->getMessage()->setFailure($e->getMessage());
         }
-        $this->redirect('grid');
+        $this->redirect('grid',null,null,true);
     }
 
        
     public function customerUpdateAction()
     {
         try{
-            $gridBlock = \Mage::getBlock('Block\Admin\Customer\Edit');
-            $gridBlock->setController($this);
-            $layout = $this->getLayout();
-            $layout->getLeft()->addChild(\Mage::getBlock('Block\Admin\Customer\Edit\Tabs'));
-            $layout->setTemplate('./View/core/layout/three_column.php');
+            $layout = $this->getLayout(); 
             $content = $layout->getChild('content');
-            $content->addChild($gridBlock);
+            $layout->setTemplate('./View/core/layout/three_column.php');
+            $customer = \Mage::getModel('Model\Customer');
+            if ($id = (int)$this->getRequest()->getGet('id')){   
+                $customer = $customer->load($id);
+            }
+            $editBlock =  \Mage::getBlock('Block\Admin\Customer\Edit')->setTableRow($customer);
+
+            $content->addChild($editBlock);
             $this->toHtmlLayout();
 
         

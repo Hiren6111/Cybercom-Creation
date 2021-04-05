@@ -3,11 +3,24 @@
     \Mage::loadFileByClassName('Model\Core\Adapter');
 
     class Table{
+
         protected $adapter = NULL;
         protected $primaryKey = NULL;
         protected $tableName = NULL;
-        //public $name = NULL;
+        protected $originalData = [];
         protected $data = [];
+        //public $name = NULL;
+
+        public function setOriginalData($originalData)
+        {
+            $this->originalData = $originalData;
+            return $this;
+        }
+
+        public function getOriginalData()
+        {
+            return $this->originalData; 
+        }
 
     
         public function setAdapter(\Model\Core\Adapter $adapter=null){
@@ -43,6 +56,12 @@
             return $this->data;
         }
 
+        public function resetData()
+        {
+            $this->data = [];
+            return $this;
+        }
+
         public function setTableName($tableName){
             $this->tableName = $tableName;
             return $this;
@@ -60,17 +79,24 @@
 
         public function __get($key)
         {
-            if(!array_key_exists($key,$this->data)){
-                return null;
+            if(array_key_exists($key,$this->data)){
+                return $this->data[$key];
             }
-            return $this->data[$key];
+            if(array_key_exists($key,$this->originalData)){
+                return $this->originalData[$key];
+            }
+            return null;
         }
         
-        public function load($value){
-            $value = (int)$value;
-            $query = "SELECT * FROM `{$this->getTableName()}` WHERE `{$this->getPrimaryKey()}`='{$value}'";
+        public function load($value, $key =  null)
+        {
+            if (!$key) {
+                $value = (int)$value;
+                $query = "SELECT *  FROM  `{$this->getTableName()}` WHERE `{$this->getPrimaryKey()}` = '{$value}'";
+            } else {
+                $query = "SELECT *  FROM  `{$this->getTableName()}` WHERE `{$key}` = '{$value}'";
+            }
             return $this->fetchRow($query);
-            
         }
 
         public function fetchRow($query){
@@ -78,7 +104,8 @@
             if(!$row){
                 return false;
             }
-            $this->data = $row;
+            $this->setOriginalData($row);
+            $this->resetData();
             return $this;
         }
         
@@ -93,7 +120,7 @@
             }
             foreach ($rows as $key => $value) {
                 $rows = new $this;
-                $rows->setData($value);
+                $rows->setOriginalData($value);
                 $rowArray[] = $rows;
             }
             $collectionClassName = get_class($this).'\Collection';
@@ -105,12 +132,22 @@
         }
         
         public function save($query = null){
+
+            
             if(!$query){
+
                 if(!array_key_exists($this->getPrimaryKey(),$this->getData())){
+                    unset($this->data[$this->getPrimaryKey()]);
+                }
+                if(!$this->data){
+                    return false;
+                }
+                
+                if(!array_key_exists($this->getPrimaryKey(),$this->getOriginalData())){
                     $keys = "`" . implode("`,`",array_keys($this->data)) . "`";
                     $values = "'" . implode("','",$this->data) . "'";
-                    $query = "INSERT INTO `". $this->getTableName() ."` (". $keys . ") VALUES (". $values . ")";
-                    //die();
+                     $query = "INSERT INTO `". $this->getTableName() ."` (". $keys . ") VALUES (". $values . ")";
+        
                     return $this->getAdapter()->insert($query);  
                 }
                 
@@ -118,8 +155,8 @@
                 foreach ($this->getData() as $key => $value) {
                     $args[] = "`$key` = '$value'";
                 }
-                $id = $this->getData()[$this->getPrimaryKey()];
-                array_shift($args);
+                $id = $this->originalData[$this->getPrimaryKey()];
+                // array_shift($args);
                 $query = "UPDATE `{$this->getTableName()}`  SET ".implode(",",$args) . " WHERE  `{$this->getPrimaryKey()}` = '{$id}'";
                 
             }
@@ -127,13 +164,19 @@
         }
 
         public function addressSave1(){
+
+            // echo 11;
+            // die;
             $data = $this->getData();
+            // echo "<pre>";
+            // print_r($data);
+            // die;
             if(array_key_exists($this->getPrimaryKey(), $data)){
                 $query = "UPDATE `{$this->getTableName()}` SET ";            
                 foreach ($data as $key => $value) {
                     if($key == $this->getPrimaryKey()){
                         continue;
-                    }
+                    }           
                     $query.= $key.'='."'$value'" .',';
                 }
                 $query = substr($query, 0, -1);
@@ -151,10 +194,11 @@
             return $this->getAdapter()->insert($query);
         }
     
-        public function delete(){
-            $id = $_GET['id'];
-            $query="Delete FROM `{$this->getTableName()}` WHERE  `{$this->getPrimaryKey()}` = '{$id}'";
+        public function delete($query = null){
+            if (!$query) {
+                $id = $_GET['id'];
+                $query="Delete FROM `{$this->getTableName()}` WHERE  `{$this->getPrimaryKey()}` = '{$id}'";
+            }
             return $this->getAdapter()->delete($query);  
         }
     }
-?>

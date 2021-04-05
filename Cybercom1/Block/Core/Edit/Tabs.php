@@ -13,7 +13,7 @@ class Tabs extends \Block\Core\Template
         $this->prepareTabs();
     }
 
-    public function setTableRow(\Model\Core\Table $tableRow)
+    public function setTableRow(\Model\Core\Table $tableRow=null)
     {
         $this->tableRow = $tableRow;
         return $this;
@@ -22,7 +22,7 @@ class Tabs extends \Block\Core\Template
     public function getTableRow()
     {
         if(!$this->tableRow){
-            $this->setTableRow();
+            $this->setTableRow(); 
         }
         return $this->tableRow;
     }

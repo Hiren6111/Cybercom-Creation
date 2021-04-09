@@ -1,6 +1,5 @@
 <?php
 namespace Model;
-\Mage::loadFileByClassName('Model\Core\Table');
 
     class Admin extends \Model\Core\Table{
         

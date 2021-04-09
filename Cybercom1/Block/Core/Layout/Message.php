@@ -1,8 +1,6 @@
 <?php
 
 namespace Block\Core\Layout;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Controller\Core\Admin');
 
 class Message extends \Block\Core\Template
 {

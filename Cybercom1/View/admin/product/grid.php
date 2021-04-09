@@ -1,3 +1,6 @@
+Excellent
+
+<?php/* 
 <?php $row = $this->getProducts();?>
 
 <div class="container">
@@ -57,3 +60,4 @@
         
     </div>
 </div>
+*/?>

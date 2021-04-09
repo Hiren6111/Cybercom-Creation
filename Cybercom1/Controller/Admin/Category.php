@@ -1,6 +1,5 @@
 <?php
 namespace Controller\Admin;
-\Mage::loadFileByClassName('Controller\Core\Admin');
 
 class Category extends \Controller\Core\Admin {
     protected $category = NULL;

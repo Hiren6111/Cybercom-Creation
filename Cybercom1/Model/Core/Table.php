@@ -1,6 +1,5 @@
 <?php
     namespace Model\Core;
-    \Mage::loadFileByClassName('Model\Core\Adapter');
 
     class Table{
 

@@ -5,7 +5,7 @@
     <br><br><br>
     <div id="main-content">
         <h2 style="text-align: center;">Shippings</h2>
-        <a href="javascript:void(0)" onclick="object.setUrl('<?php echo $this->getUrl('edit'); ?>').resetParams().load();" class="btn btn-primary">Add Shipping</a><br><br>
+        <a href="<?php echo $this-> getUrl('edit') ?>"  class="btn btn-primary">Add Shipping</a><br><br>
 
         <div class="table_data">
             <table border="3px" cellpadding="10px" align="center" width="70%" class="table table-striped" style="border-collapse:collapse">
@@ -36,8 +36,8 @@
                             <td><?php echo $value->description; ?></td>
                             <td><?php echo $value->status; ?></td>
                             <td><?php echo $value->createdDate; ?></td>
-                            <td><a class="btn btn-success" href="javascript:void(0)" onclick="object.setUrl('<?php echo $this->getUrl('edit', null, ['id' => $value->shipppingId]); ?>').resetParams().load();">Edit</a></td>
-                            <td><a class="btn btn-danger" href="javascript:void(0)" onclick="object.setUrl('<?php echo $this->getUrl('delete', null, ['id' => $value->shippingId]); ?>').resetParams().load();">Delete</a></td>
+                            <td><a class="btn btn-success" href="<?php echo $this->getUrl('edit', null, ['id' => $value->shippingId]) ?>">Edit</a></td>
+                            <td><a class="btn btn-danger" href="<?php echo $this->getUrl('delete', null, ['id' => $value->shippingId]) ?>">Delete</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>

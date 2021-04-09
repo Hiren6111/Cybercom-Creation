@@ -1,6 +1,5 @@
 <?php
 namespace Model\Product\Group;
-\Mage::loadFileByClassName('Model\Core\Table');
 
 class Price extends \Model\Core\Table
 {

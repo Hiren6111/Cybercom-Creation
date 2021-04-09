@@ -2,7 +2,6 @@
 
 namespace Controller\Admin;
 
-\Mage::loadFileByClassName("Controller\Core\Admin");
 
 class Product extends \Controller\Core\Admin
 {
@@ -95,6 +94,17 @@ class Product extends \Controller\Core\Admin
             $this->getMessage()->setFailure($e->getMessage());
         }
     }
+
+    public function filterAction()
+    {
+        $filters = $this->getRequest()->getPost('filter');
+        $filterModel = \Mage::getModel('Model\Admin\Filter');
+        $filterModel->setFilters($filters);
+        //$filterValues = $filterModel->getFilterValue('text','email');
+        $this->redirect('grid');
+        //print_r($filterValues);
+        //die();
+    } 
     
     public function productMediaAction()
     {

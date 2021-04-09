@@ -1,36 +1,68 @@
-<?php 
-
+<?php
 namespace Block\Admin\Configuration\Edit\Tabs;
 
-class Information extends \Block\Core\Template
+class Group extends \Block\Core\Edit
 {
-    protected $configGroup=NULL;
+    protected $configuration = [];
+    protected $groups = [];
+
     public function __construct()
     {
-        $this->setTemplate("View/admin/configuration/edit/tabs/information.php");
+        $this->setTemplate('View/admin/configuration/edit/tabs/group.php');
     }
 
-    public function setConfigGroup($configGroup = null)
+    public function setConfiguration($configuration = NULL)
     {
-        if ($configGroup) {
-            $this->configGroup = $configGroup;
-            return $this;
+        if ($configuration) {
+            $this->configuration = $configuration;
+            echo "<pre>";
+            // print_r($configuration);
+            // die;
+            // return $this;
         }
-        $config = \Mage::getModel('Model\Config');
+        $configuration = \Mage::getModel('Model\Configuration');
 
-        if ($id = $this->getRequest()->getGet("id")) {
-
-            $configGroup = $configGroup->load($id);
+        if ($id = $this->getRequest()->getGet('id')) {
+            $configuration = $configuration->load($id);
         }
-        $this->configGroup = $configGroup;
+        $this->configuration = $configuration;
         return $this;
     }
-    public function getConfigGroup()
+
+    public function getConfiguration()
     {
-        if (!$this->configGroup) {
-            $this->setConfigGroup();
+        if(!$this->configuration)
+        {
+            $this->setConfiguration();
         }
-        return $this->configGroup;
+        return $this->configuration;
     }
+
+    public function setGroups($groups = null){
+        if ($groups) {
+            $this->$groups = $groups;
+            return $this;
+        }
+        // echo 1;
+        // die;
+        if($configId = $this->getTableRow()->configId){
+            $ConfigurationGroup = \Mage::getModel('Model\Configuration\ConfigGroup');
+            $query = "SELECT * FROM {$ConfigurationGroup->getTableName()} WHERE `groupId` = {$configId};";
+            $groups = $ConfigurationGroup->fetchAll($query);
+            if($groups){
+                $this->groups = $groups;
+                return $this;
+            }
+        }
+        $this->groups = $groups;
+        return $this;
+    }
+
+    public function getgroups(){
+        if (!$this->groups) {
+            $this->setgroups();
+        }
+        return $this->groups;
+    }
+
 }
-?>

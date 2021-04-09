@@ -1,6 +1,9 @@
 <?php $attribute = $this->getAttribute();
+echo "<pre>";
+// print_r($attribute);
+// die;
 ?>
-<form action="<?php echo $this->getUrl('update'); ?>" method="POST">
+<form action="<?php echo $this->getUrl('update','Attribute_Option'); ?>" method="POST">
     <input type="submit" name="update" value="update" class = "btn btn-info">
     <input type="button" name="addOption" value="Add Option" class = "btn btn-info" onclick="addRow();">
     <table id='existingOption'>
@@ -25,9 +28,9 @@
     <table id='newOption'>
         <tbody>
             <tr>
-                <td><input type="text" name="name[new][]"></td>
-                <td><input type="text" name="sortOrder[new][]"></td>
-                <td><input type="submit" name="removeOption[new][]" value="Remove Option" onclick="removeRow(this)"></td>
+                <td><input type="text" name="new[name][]"></td>
+                <td><input type="text" name="new[sortOrder][]"></td>
+                <td><input type="submit" name="removeOption" value="Remove Option" onclick="removeRow(this)"></td>
             </tr>
         </tbody>
     </table>

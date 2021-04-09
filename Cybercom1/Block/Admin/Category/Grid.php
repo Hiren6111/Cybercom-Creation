@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\Category;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Category');
 
 class Grid extends \Block\Core\Template{
     protected $categories = null;

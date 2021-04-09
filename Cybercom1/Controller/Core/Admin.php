@@ -2,8 +2,6 @@
 
 namespace Controller\Core;
 
-\Mage::loadFileByClassName('Block\Core\Layout');
-
 class Admin
 {
 	protected $request = Null;

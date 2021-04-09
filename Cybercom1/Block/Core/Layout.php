@@ -1,9 +1,5 @@
 <?php
     namespace Block\Core;
-    \Mage::loadFileByClassName('Block\Core\Template');
-    \Mage::loadFileByClassName('Block\Core\Layout\Content');
-    \Mage::loadFileByClassName('Block\Core\Layout\Header');
-    \Mage::loadFileByClassName('Block\Core\Layout\Footer');
     
     class Layout extends \Block\Core\Template{
 

@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\CustomerGroup;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\CustomerGroup');
 
 class Grid extends \Block\Core\Template
 {

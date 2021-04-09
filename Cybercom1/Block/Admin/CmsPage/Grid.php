@@ -1,8 +1,6 @@
 <?php
 namespace Block\Admin\CmsPage;
 
-\Mage::loadFileByClassName('Block\Core\Template');
-
 class Grid extends \Block\Core\Template
 {
     protected $cmsPages = [];

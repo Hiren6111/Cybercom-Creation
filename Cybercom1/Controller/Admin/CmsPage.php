@@ -1,8 +1,5 @@
 <?php
 namespace Controller\Admin;
-\Mage::loadFileByClassName('Controller\Core\Admin');
-\Mage::loadFileByClassName('Block\Core\Layout');
-
 
 class CmsPage extends \Controller\Core\Admin{
     protected $cmsPages = [];

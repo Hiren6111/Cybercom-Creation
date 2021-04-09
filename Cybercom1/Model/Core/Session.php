@@ -1,5 +1,6 @@
 <?php
 namespace Model\Core;
+
 class Session 
 {
     protected $nameSpace = null;

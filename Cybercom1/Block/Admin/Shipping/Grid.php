@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\Shipping;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Shipping');
 
 class Grid extends \Block\Core\Template
 {

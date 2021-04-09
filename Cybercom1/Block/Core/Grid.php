@@ -1,55 +1,28 @@
-<?php 
+<?php
 namespace Block\Core;
 
-use Mage;
+class Grid extends \Block\Core\Template{
+    protected $collection = [];
+    protected $columns = [];
+    protected $actions = [];
+    protected $buttons = [];
 
-class Grid extends Template
-{
-     protected $collection = Null;
-     protected $pager = null;
-     protected $columns = [];
-     protected $actions = [];
-     protected $status = [];
-     protected $buttons = [];
-     protected $filter = [];
-     protected $filterButton = [];
-
-     function __construct()
+    public function __construct()
     {
-        $this->setTemplate('View\core\grid.php');
-        $this->prepareCollection();
-        $this->prepareColumns();
-        $this->prepareActions();
-        $this->prepareButtons();
-        $this->prepareFilter();
-        $this->prepareFilterButton();
-    } 
-
-    public function setCollection($collection)
-    {
-        $this->collection = $collection;
-        return $this;
+       $this->setTemplate('./View/core/grid.php'); 
+       $this->prepareColumns();
+       $this->prepareActions();
+       $this->prepareButtons();
     }
 
-    public function getCollection()
+    public function getTitle()
     {
-        if(!$this->collection){
-            $this->prepareCollection();
-        }
-        return $this->collection;
+        return  'Manage Module';
     }
-
-    public function getPager()
-    {
-        if(!$this->pager){
-            return Mage::getController('Controller\Core\Pager');
-        }
-        return $this->pager;
-    }
-
-    public function setPager(\Controller\Core\Pager $pager)
-    {
-        $this->pager = $pager;
+    public function setCollection($collection) {
+        
+            $this->collection = $collection;
+            return $this;
     }
 
     public function prepareCollection()
@@ -57,23 +30,25 @@ class Grid extends Template
         return $this;
     }
 
-    public function addButton($key , $value)
+    public function getCollection() {
+        if (!$this->collection) {
+            $this->prepareCollection();
+        }
+        return $this->collection;
+    }
+
+    public function setColumns($columns)
     {
-        $this->buttons[$key] = $value;
+        $this->columns = $columns;
         return $this;
     }
 
-    public function getButtons()
+    public function getColumns()
     {
-        return $this->buttons;
+        return $this->columns;
     }
 
-    public function prepareButtons()
-    {
-        return $this;
-    }
-
-    public function addColumn($key , $value)
+    public function addColumn($key, $value)
     {
         $this->columns[$key] = $value;
         return $this;
@@ -84,12 +59,23 @@ class Grid extends Template
         return $this;
     }
 
-    public function getColumns()
+    public function getFieldValue($row, $field)
     {
-        return $this->columns;
+        return $row->$field;
     }
 
-    public function addAction($key , $value)
+    public function getActions()
+    {
+        return $this->actions;
+    }
+
+    public function setActions($actions)
+    {
+        $this->actions = $actions;
+        return $this;
+    }
+
+    public function addAction($key, $value)
     {
         $this->actions[$key] = $value;
         return $this;
@@ -100,85 +86,38 @@ class Grid extends Template
         return $this;
     }
 
-    public function getActions()
+    public function getButtons()
     {
-        return $this->actions;
+        return $this->buttons;
     }
 
-    public function addStatus($key,$value)      
+    public function setButtons($buttons)
     {
-        $this->status[$key] = $value;
+        $this->buttons = $buttons;
         return $this;
     }
 
-    public function prepareStatus()
+    public function addButton($key, $value)
     {
-        $this->addStatus('1',[
-            'method' => 'getStatusUrl',
-            'label' => 'Enable',
-            'ajax' => true,
-            'class' => 'btn btn-success'
-        ]);
-
-        $this->addStatus('0',[
-            'method' => 'getStatusUrl',
-            'label' => 'Disable',
-            'ajax' => true,
-            'class' => 'btn btn-danger'
-        ]);
-    }
-
-    public function getMethodUrl($row, $method, $ajax = true)
-    {
-        return $this->$method($row, $ajax);
-    }
-
-    public function getButtonUrl($method, $ajax = true)
-    {
-        return $this->$method($ajax);
-    }
-
-    public function FieldValue($row, $field)
-    {
-        return $row->$field;
-    }
-
-    public function getTitle()
-    {
-        return "Manage Module";
-    }
-
-    public function addFilterButton($key,$value)
-    {
-        $this->filterButton[$key] = $value;
+        $this->buttons[$key] = $value;
         return $this;
     }
 
-    public function getFilterButtons()
-    {
-        return $this->filterBotton;
-    }
-
-    public function prepareFilter()
+    public function prepareButtons()
     {
         return $this;
     }
 
-    public function getFilters()
+    public function getMethodUrl($row, $methodName)
     {
-        return $this->filters;
+        return $this->$methodName($row);
     }
 
-    public function addFilter($key , $value)
+    public function getButtonUrl($methodName)
     {
-        $this->filters[$key] = $value;
-        return $this;
+        return $this->$methodName();
     }
 
-    public function prepareFilterButton()
-    {
-        return $this;
-    }
-
+    
 
 }

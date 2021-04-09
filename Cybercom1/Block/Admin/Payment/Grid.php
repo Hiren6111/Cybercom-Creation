@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\Payment;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Payment');
 
 class Grid extends \Block\Core\Template{
     protected $payments = [];
@@ -15,7 +13,7 @@ class Grid extends \Block\Core\Template{
 
             if(!$payments) {
                 $payments = \Mage::getModel('Model\Payment');
-                $payments = $payments->fetchAll()->getData();
+                $payments = $payments->fetchAll();
             }
             $this->payments = $payments;
             return $this;

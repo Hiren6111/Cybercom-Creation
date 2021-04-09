@@ -95,86 +95,26 @@ class Cart extends \Controller\Core\Admin{
         $this->getCart($customerId);
         $this->redirect('index');
     }
-
-    public function paymentAction()
+     
+    public function savePaymentAction()
     {
-        $cart = \Mage::getModel('Model\Cart');
-        $customerId = $this->getCart()->customerId;
-        $paymentMethod = $this->getRequest()->getPost('payment');
-        if ($paymentMethod) {
-            switch ($paymentMethod) {
-                case 'COD':
-                    $cart->paymentMethodId = \Model\Cart::COD;
-                    break;
-                case 'BHIM UPI':
-                    $cart->paymentMethodId = \Model\Cart::BHIM_UPI;
-                    break;
-                case 'Credit Card':
-                    $cart->paymentMethodId = \Model\Cart::CREDITCARD;
-                    break;
-                case 'Debit Card':
-                    $cart->paymentMethodId = \Model\Cart::DEBITCARD;
-                    break;
-                case 'Net Banking':
-                    $cart->paymentMethodId = \Model\Cart::NET_BANKING;
-                    break;
-
-                default:
-                    throw new \Exception('Invalid Input for payment method.');
-                    break;
-            }
-            $query = "UPDATE `cart` SET `paymentMethodId`='{$cart->paymentMethodId}' WHERE `customerId` = '{$customerId}';";
-            $cart->save($query);
-            $this->getMessage()->setSuccess('Shipping Method successfully slected.');
-        }
-        $this->redirect('index');
+        $paymentId = $this->getRequest()->getPost('paymentId');
+        $cart = $this->getCart();
+        $payment = \Mage::getModel("Model\Payment")->load($paymentId);
+        $cart->paymentMethodId = $payment->paymentId;
+        $cart->save();
+        $this->redirect('index','Cart',null,true);   
     }
 
-    public function shipmentAction()
+    public function saveShippingAction()
     {
-        $cart = \Mage::getModel('Model\Cart');
-        $customerId = $this->getCart()->customerId;
-        $shippingMethod = $this->getRequest()->getPost('shipment');
-        if ($shippingMethod) {
-            switch ($shippingMethod) {
-                case 'Platinum':
-                    $cart->shippingMethodId = \Model\Cart::PLATINUM;
-                    break;
-                case 'Gold':
-                    $cart->shippingMethodId = \Model\Cart::GOLD;
-                    break;
-                case 'Silver':
-                    $cart->shippingMethodId = \Model\Cart::SILVER;
-                    break;
-
-                default:
-                    throw new \Exception('Invalid Input for shipment method.');
-                    break;
-            }
-            $query = "UPDATE `cart` SET `shippingMethodId`='$cart->shippingMethodId'WHERE `customerId` = '{$customerId}'";
-            $cart->save($query);
-            if ($cart->shippingMethodId) {
-                switch ($shippingMethod) {
-                    case 'Platinum':
-                        $cart->shippingAmount = \Model\Cart::PLATINUM_FEE;
-                        break;
-                    case 'Gold':
-                        $cart->shippingAmount = \Model\Cart::GOLD_FEE;
-                        break;
-                    case 'Silver':
-                        $cart->shippingAmount = \Model\Cart::SILVER_FEE;
-                        break;
-
-                    default:
-                        throw new \Exception('Invalid Input for shipment method.');
-
-                        break;
-                }
-                $query = "UPDATE `cart` SET `shippingAmount`='$cart->shippingAmount' WHERE `customerId` = '{$customerId}';";
-                $cart->save($query);
-            }
-        }
-        $this->redirect('index');
+        $shippingId = $this->getRequest()->getPost('shippingId');
+        $cart = $this->getCart();
+        $shipping = \Mage::getModel("Model\Shipping")->load($shippingId);
+        $cart->shippingAmount = $shipping->amount;
+        $cart->shippingMethodId = $shipping->shippingId;
+        $cart->save();
+        $this->redirect('index','Cart',null,true);   
     }
 
     public function billingAddressAction()

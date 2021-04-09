@@ -1,22 +1,21 @@
 <?php
 namespace Controller\Admin;
-\Mage::loadFileByClassName('Controller\Core\Admin');
 
 class Shipping extends \Controller\Core\Admin{
     protected $shippings = [];
 
     public function gridAction (){
-        $grid = \Mage::getBlock('Block\Admin\Shipping\Grid')->toHtml();
-        $response = [
-            'element' => [
-                [
-                    'selector' => '#content',
-                    'html' => $grid,
-                ],
-            ],
-        ];
-        header("Content-type:appliction/json; charset=utf-8");
-        echo json_encode($response);
+        try{
+            $gridBlock = \Mage::getBlock('Block\Admin\Shipping\Grid');
+            $gridBlock->setController($this);
+            $layout = $this->getLayout();
+            $content = $layout->getChild('content');
+            $content->addChild($gridBlock);
+            $this->toHtmlLayout();
+
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
     }
     
 
@@ -52,19 +51,21 @@ class Shipping extends \Controller\Core\Admin{
        
     public function editAction()
     {
-        $contentForm = \Mage::getBlock('Block\Admin\shipping\Edit')->toHtml();
-        $response = [
-            'element' => [
-                [
-                    'selector' => '#content',
-                    'html' => $contentForm,
-                ],
-            ],
-        ];
-        header("Content-type:appliction/json; charset=utf-8");
-        echo json_encode($response);
+        try{
+            $gridBlock = \Mage::getBlock('Block\Admin\Shipping\Edit');
+            $gridBlock->setController($this);
+            $layout = $this->getLayout();
+            // $layout->getLeft()->addChild(\Mage::getBlock('Block\Admin\Shipping\Edit\Tabs'));
+            $layout->setTemplate('./View/core/layout/three_column.php');
+            $content = $layout->getChild('content');
+            $content->addChild($gridBlock);
+            $this->toHtmlLayout();
+
+        
+        }catch(\Exception $e){
+            echo $e->getMessage();
     }
-    
+}
     
     public function deleteAction()
     {

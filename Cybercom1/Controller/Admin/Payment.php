@@ -1,8 +1,5 @@
 <?php
 namespace Controller\Admin;
-\Mage::loadFileByClassName('Controller\Core\Admin');
-\Mage::loadFileByClassName('Block\Core\Layout');
-
 
 class Payment extends \Controller\Core\Admin{
     protected $payments = [];
@@ -71,7 +68,7 @@ class Payment extends \Controller\Core\Admin{
             echo $e->getMessage();
         }
         
-        //require_once './View/admin/payment/paymentUpdate.php';
+        $this->redirect('grid',null,null,true);
         
     }
     
@@ -96,7 +93,7 @@ class Payment extends \Controller\Core\Admin{
         catch (\Exception $e) {
             $this->getMessage()->setFailure($e->getMessage());
         }  
-        $this->redirect('grid');
+        $this->redirect('grid',null,null,true);
     }
     
 }

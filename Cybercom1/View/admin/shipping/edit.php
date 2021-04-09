@@ -44,7 +44,7 @@ $shipping = $this->getShipping();
                     }
                     ?>
                 </select><br>
-                <button type="submit" class="btn btn-primary" onclick="object.resetParams().setForm('#shippingForm').load();" value="submit">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
 
             </div>

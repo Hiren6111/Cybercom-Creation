@@ -1,7 +1,5 @@
 <?php
 namespace Controller\Admin;
-\Mage::loadFileByClassName('Controller\Core\Admin');
-\Mage::loadFileByClassName('Block\Core\Layout');
 
 class CustomerGroup extends \Controller\Core\Admin 
 {

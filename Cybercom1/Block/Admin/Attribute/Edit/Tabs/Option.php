@@ -16,7 +16,10 @@ class Option extends \Block\Core\Edit
     {
         if ($attribute){
             $this->attribute = $attribute;
-            return $this;
+            echo "<pre>";
+            // print_r($attribute);
+            // die;
+            // return $this;
         }
         $attribute = \Mage::getModel('Model\Attribute');
         if ($id = $this->getRequest()->getGet('id')){   

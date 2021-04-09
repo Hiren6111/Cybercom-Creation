@@ -3,24 +3,12 @@ namespace Model;
 
 class Cart extends \Model\Core\Table 
 {
-    const PLATINUM = 1;
-    const GOLD = 2;
-    const SILVER = 3;
-    const PLATINUM_FEE = 100;
-    CONST GOLD_FEE = 50;
-    CONST SILVER_FEE = 0;
-    const COD = 1;
-    const BHIM_UPI = 2;
-    const CREDITCARD = 3;
-    const DEBITCARD = 4;
-    const NET_BANKING = 5;
-
     protected $customer = null;
     protected $items = null;
     protected $billingAddress = null;
     protected $shippingingAddress = null;
-    protected $payment = null;
-    protected $shipment = null;
+    protected $paymentMethodId = null;
+    protected $shippingMethodId = null;
     public function __construct()
     {
         $this->setTableName('cart');
@@ -79,9 +67,11 @@ class Cart extends \Model\Core\Table
             $this->setBillingAddress($cartAddress);
             return $this->billingAddress;
         }
-        // print_r($_SESSION);
-        // die;
-        $customerBillingAddress = $this->getCustomer()->getCustomerBillingAddress();
+        $customer = $this->getCustomer();
+        if (!$customer) {
+            return false;
+        }
+        $customerBillingAddress = $customer->getCustomerBillingAddress();
         if ($customerBillingAddress) {
             $this->setBillingAddress($customerBillingAddress);
             return $this->billingAddress;
@@ -102,7 +92,11 @@ class Cart extends \Model\Core\Table
             $this->setShippingAddress($cartAddress);
             return $this->shippingAddress;
         }
-        $customerShippingAddress = $this->getCustomer()->getCustomerShippingAddress();
+        $customer = $this->getCustomer();
+        if (!$customer) {
+            return false;
+        }
+        $customerShippingAddress = $customer->getCustomerShippingAddress();
         if ($customerShippingAddress) {
             $this->setShippingAddress($customerShippingAddress);
             return $this->shippingAddress;
@@ -110,39 +104,38 @@ class Cart extends \Model\Core\Table
         return null;
     }
 
-    public function setShippingMethodId(\Model\Shipping $shippingMethodId)
-    {
-        $this->shippingMethodId = $shippingMethodId;
-        return $this;
-    }
-
-    public function getShippimgMethodId()
-    {
-        if (!$this->shippingMethodId) {
-            return false;
-        }
-        $query = "SELECT shippingId FROM `shipping`";
-        $shippingMethodId = \Mage::getModel('Model\Shipping')->fetchRow($query);
-        $this->setShippingMethodId($shippingMethodId);
-        return $this->shippingMethodId; 
-    }  
-
-    
     public function setPaymentMethodId(\Model\Payment $paymentMethodId)
     {
         $this->paymentMethodId = $paymentMethodId;
         return $this;
     }
-    
+
     public function getPaymentMethodId()
     {
-        if (!$this->paymentMethodId) {
+        // echo "<pre>";
+        // print_r($this);die;
+        if (!$this->paymentMethodId) {          
             return false;
         }
-        $query = "SELECT paymentId FROM `payment`";
-        $payment = \Mage::getModel('Model\Payment')->fetchRow($query);
-        $this->setPaymentMethodId($payment);
-        return $this->paymentMethodId; 
+        $paymentMethodId = \Mage::getModel('Model\Payment')->load($this->paymentMethodId);
+        $this->setPaymentMethodId($paymentMethodId);
+        return $this->paymentMethodId;
+    }
+
+    public function setShippingMethodId(\Model\Shipping $shipping)
+    {
+        $this->shippingMethod = $shipping;
+        return $this;
+    }
+
+    public function getShippingMethodId()
+    {
+        if (!$this->shippingMethodId) {
+            return false;
+        }
+        $shipping = \Mage::getModel('Model\Shipping')->load($this->shippingMethodId);
+        $this->setShippingMethodId($shipping);
+        return $this->shippingMethod;
     }
 
     public function addItemToCart($product,$quantity = 1,$addMode = false)
@@ -163,6 +156,7 @@ class Cart extends \Model\Core\Table
             $cartItem->price=$product->price;
             $cartItem->quantity=$quantity;
             $cartItem->discount=$product->discount*$quantity;
+            // $cartItem->totalPrice = ($product->price*$quantity)-($cartItem->discount);
             $cartItem->createdDate = date('Y-m-s H:i:s');
 
             $cartItem->save();
@@ -171,8 +165,8 @@ class Cart extends \Model\Core\Table
     
     public function getShippingCharge()
     {
-        $query = "SELECT `shippingAmount` FROM `{$this->getTableName()}` WHERE customerId = '$this->customerId'";
-        $shippingAmount = $this->fetchRow($query)->getData()['shippingAmount'];
+        $query = "SELECT `shippingAmount` FROM `{$this->getTableName()}` WHERE `customerId` = '$this->customerId'";
+        $shippingAmount = $this->fetchRow($query)->shippingAmount;
         return $shippingAmount;
     } 
 

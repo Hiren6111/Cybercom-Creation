@@ -1,7 +1,6 @@
 <?php
 
 namespace Block\Admin\Product\Edit;
-\Mage::loadFileByClassName('Block\Core\Edit\Tabs');
 
 class Tabs extends \Block\Core\Edit\Tabs
 {    

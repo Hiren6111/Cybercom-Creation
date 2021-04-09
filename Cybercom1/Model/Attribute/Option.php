@@ -1,7 +1,6 @@
 <?php 
 
 namespace Model\Attribute;
-\Mage::loadFileByClassName('Model\Core\Table');
 
 class Option extends \Model\Core\Table 
 {

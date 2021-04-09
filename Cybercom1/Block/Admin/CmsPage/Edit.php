@@ -1,6 +1,5 @@
 <?php
 namespace Block\Admin\CmsPage;
-\Mage::loadFileByClassName('Block\Core\Edit');
 
 class Edit extends \Block\Core\Edit
 {

@@ -1,9 +1,6 @@
 <?php
 namespace Controller\Admin;
 
-\Mage::loadFileByClassName('Model\Core\Adapter');
-\Mage::loadFileByClassName('Controller\Core\Admin');
-
 class Brand extends \Controller\Core\Admin
 {
     public function indexAction()

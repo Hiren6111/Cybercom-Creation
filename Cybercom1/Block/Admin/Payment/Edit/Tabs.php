@@ -1,6 +1,5 @@
 <?php
 namespace Block\Admin\Payment\Edit;
-\Mage::loadFileByClassName('Block\Core\Template');
 
 class Tabs extends \Block\Core\Template
 {

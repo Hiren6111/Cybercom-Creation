@@ -1,6 +1,5 @@
 <?php
 namespace Block\Admin\Shipping;
-\Mage::loadFileByClassName('Block\Core\Template');
 
 class Edit extends \Block\Core\Template
 {

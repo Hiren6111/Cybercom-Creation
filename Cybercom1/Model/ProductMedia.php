@@ -1,6 +1,5 @@
 <?php
 namespace Model;
-\Mage::loadFileByClassName('Model\Core\Table');
 
     class ProductMedia extends \Model\Core\Table{
         

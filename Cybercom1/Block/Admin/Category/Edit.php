@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\Category;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Block\Core\Edit');
 
 
 class Edit extends \Block\Core\Edit

@@ -1,7 +1,7 @@
 <?php
 namespace Model\Core;
-\Mage::loadFileByClassName('Model\Core\Session');
-class Message extends Session
+
+class Message extends \Model\Core\Session
 {
 
     public function setSuccess($message)

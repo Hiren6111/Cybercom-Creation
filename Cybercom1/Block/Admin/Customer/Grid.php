@@ -1,7 +1,5 @@
 <?php
 namespace Block\Admin\Customer;
-\Mage::loadFileByClassName('Block\Core\Template');
-\Mage::loadFileByClassName('Model\Customer');
 
 class Grid extends \Block\Core\Template{
     protected $customers = [];

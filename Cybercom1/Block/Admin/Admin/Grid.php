@@ -1,6 +1,5 @@
 <?php
 namespace Block\Admin\Admin;
-\Mage::loadFileByClassName('Block\Core\Template');
 
 class Grid extends \Block\Core\Template
 {
